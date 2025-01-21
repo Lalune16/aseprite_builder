@@ -128,7 +128,17 @@ jobs:
         if: matrix.os == 'windows-latest'
         working-directory: aseprite/build
         shell: cmd
-        run: cmake -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DCMAKE_IGNORE_PATH='C:/ProgramData/chocolatey/bin/;C:/Strawberry/c/bin/' -DLAF_BACKEND=skia -DSKIA_DIR=../../skia -DSKIA_LIBRARY_DIR=../../skia/out/Release-x64 -G Ninja ..
+        run: |
+          # 设置 CMake 的构建类型等选项
+          cmake -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
+                -DCMAKE_IGNORE_PATH="C:/ProgramData/chocolatey/bin/;C:/Strawberry/c/bin/" \
+                -DLAF_BACKEND=skia \
+                -DSKIA_DIR=../../skia \
+                -DSKIA_LIBRARY_DIR=../../skia/out/Release-x64 \
+                -G "Visual Studio 16 2019" ..  # 使用 Visual Studio 生成器
+
+                
+
       - name: (Ubuntu) Run CMake
         if: matrix.os == 'ubuntu-latest'
         working-directory: aseprite/build
