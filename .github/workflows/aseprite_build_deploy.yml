@@ -62,6 +62,7 @@ jobs:
     name: Build Aseprite
     needs: check-version
     runs-on: ${{ matrix.os }}
+    if: ${{ needs.check-version.outputs.should_build }}
     strategy:
        matrix:
          os: [windows-latest]
